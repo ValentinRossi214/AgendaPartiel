@@ -2,6 +2,7 @@ package agenda;
 
 import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 
 public class Event {
 
@@ -20,6 +21,8 @@ public class Event {
      */
     private Duration myDuration;
 
+    private Repetition myRepetition;
+
 
     /**
      * Constructs an event
@@ -35,33 +38,27 @@ public class Event {
     }
 
     public void setRepetition(ChronoUnit frequency) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        myRepetition = new Repetition(frequency);
     }
 
     public void addException(LocalDate date) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        myRepetition.addException(date);
     }
 
     public void setTermination(LocalDate terminationInclusive) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        myRepetition.setTermination(new Termination(myStart.toLocalDate(), myRepetition.getFrequency(), terminationInclusive));
     }
 
     public void setTermination(long numberOfOccurrences) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        myRepetition.setTermination(new Termination(myStart.toLocalDate(), myRepetition.getFrequency(), numberOfOccurrences));
     }
 
     public int getNumberOfOccurrences() {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        return (int) myRepetition.getNumberOfOccurrences();
     }
 
     public LocalDate getTerminationDate() {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        return myRepetition.getTerminationDate();
     }
 
     /**
@@ -71,8 +68,22 @@ public class Event {
      * @return true if the event occurs on that day, false otherwise
      */
     public boolean isInDay(LocalDate aDay) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        Repetition checkDay = new Repetition(ChronoUnit.DAYS);
+
+        if(myRepetition == null)
+            return myStart.toLocalDate().equals(aDay) || myStart.plusHours(myDuration.toHours()).toLocalDate().equals(aDay);
+        else {
+            if(myRepetition.getExceptions().contains(aDay) || checkDay.getFrequency().between(myStart.toLocalDate(), aDay) < 0) {
+                return false;
+            }
+
+            return switch (myRepetition.getFrequency()) {
+                case DAYS -> true;
+                case WEEKS -> checkDay.getFrequency().between(myStart.toLocalDate(), aDay) / 7 == myRepetition.getFrequency().between(myStart.toLocalDate(), aDay);
+                case MONTHS -> checkDay.getFrequency().between(myStart.toLocalDate(), aDay) / 30 == myRepetition.getFrequency().between(myStart.toLocalDate(), aDay);
+                default -> false;
+            };
+        }
     }
    
     /**
