@@ -7,8 +7,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * Teste des événements simples, sans répétition
  */
@@ -54,6 +54,21 @@ public class SimpleEventTest {
     public void toStringShowsEventTitle() {
         assertTrue(simple.toString().contains("Simple event"),
             "toString() doit montrer le titre de l'événement");
+    }
+
+    @Test
+    public void testGetTitle() {
+        assertEquals("Simple event", simple.getTitle(), "getTitle() doit retourner le titre de l'événement");
+    }
+
+    @Test
+    public void testGetStart() {
+        assertEquals(nov_1_2020_22_30, simple.getStart(), "getStart() doit retourner la date de début de l'événement");
+    }
+
+    @Test
+    public void testGetDuration() {
+        assertEquals(min_89, simple.getDuration(), "getDuration() doit retourner la durée de l'événement");
     }
     
 }

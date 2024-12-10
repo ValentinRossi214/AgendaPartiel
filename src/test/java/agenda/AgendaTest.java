@@ -23,6 +23,8 @@ public class AgendaTest {
     // November 1st, 2020, 22:30
     LocalDateTime nov_1_2020_22_30 = LocalDateTime.of(2020, 11, 1, 22, 30);
 
+    LocalDate feb_12_2020 = LocalDate.of(2020, 2, 12);
+
     // 120 minutes
     Duration min_120 = Duration.ofMinutes(120);
 
@@ -68,6 +70,12 @@ public class AgendaTest {
         assertEquals(4, agenda.eventsInDay(nov_1_2020).size(),
             "Il y a 4 événements ce jour là");
         assertTrue(agenda.eventsInDay(nov_1_2020).contains(neverEnding));
+    }
+
+    @Test
+    public void testEventNotInDay() {
+        assertEquals(0, agenda.eventsInDay(feb_12_2020).size(),
+            "Il n'y a pas d'événement ce jour là");
     }
 
 

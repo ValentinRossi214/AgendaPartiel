@@ -18,6 +18,8 @@ public class FixedTerminationEventTest {
     // November 1st, 2020
     LocalDate nov_1_2020 = LocalDate.of(2020, 11, 1);
 
+    LocalDate dec_1_2020 = LocalDate.of(2020, 12, 1);
+
     // November 1st, 2020, 22:30
     LocalDateTime nov_1__2020_22_30 = LocalDateTime.of(2020, 11, 1, 22, 30);
 
