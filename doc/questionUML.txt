@@ -1,2 +1,21 @@
-Ecrire ici votre réponse à la question UML.
+Le second UML proposé offre une solution alternative à la composition
+en la remplacant en quelques sortes par une relation d'héritage.
 
+L'héritage proposé pourrait offrir des avantages par rapport au fait
+qu'une classe RepetitiveEvent soit plus simple à utiliser qu'un Event simple
+comme implémenté dans le sujet principal. De plus, on pourrait réutiliser
+plus simplement les méthodes de Event dans RepetitiveEvent.
+
+Il y a cependant un problème parrapport au fait qu'une fois qu'un RepetitiveEvent
+est crée, on ne pourra plus lui fixer de date de fin, il aurait falu le prévoir
+avant la création de l'objet et en faire un Fixed Termination Event.
+Il y a donc un problème de conception dans ce cas là.
+
+Le stockage eventuel des Event dans agenda serait aussi un problème.
+On pourrait imaginer une solution où on stockerait les Event dans une liste
+où la liste prendrait des Event, il est cependant préferable d'utiliser le nom
+d'une interface implémentée par toutes les classes plutôt que le nom de la classe mère.
+
+Une solution que l'on pourrait imaginer serait de créer une interface Event à faire
+implémenter à un objet Simple Event et garder les relation d'héritage en utilisant
+comme classe mère Simple Event.
